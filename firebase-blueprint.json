@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Stores user profile and membership status",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["free", "member", "admin"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Simulation": {
+      "title": "Detailed Simulation",
+      "description": "Detailed tattoo simulation data for members",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "bodyImage": { "type": "string" },
+        "tattooImage": { "type": "string" },
+        "resultImage": { "type": "string" },
+        "prompt": { "type": "string" },
+        "style": { "type": "string" },
+        "settings": {
+          "type": "object",
+          "properties": {
+            "opacity": { "type": "number" },
+            "scale": { "type": "number" },
+            "rotation": { "type": "number" },
+            "placement": { "type": "string" }
+          }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "bodyImage", "tattooImage", "createdAt"]
+    },
+    "Feedback": {
+      "title": "User Feedback",
+      "description": "User feedback and ratings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "rating": { "type": "integer" },
+        "comment": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["rating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/simulations/{simId}": {
+      "schema": "Simulation",
+      "description": "Member simulations"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback"
+    }
+  }
+}
